@@ -2,8 +2,9 @@
 
 import React, { Component } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import SYImagePicker from 'react-native-syan-image-picker'
 
-import ImagePicker from 'react-native-image-picker';
+
 import LocalStorage from '../../utils/localStorage';
 import Utils from '../../utils/utils';
 import EventTypes from '../../config/eventTypes';
@@ -20,7 +21,7 @@ import {
   NativeModules,
 } from 'react-native';
 
-import {Toast} from 'antd-mobile-rn';
+// import {Toast} from 'antd-mobile-rn';
 
 let screenW = Dimensions.get('window').width;
 let screenH = Dimensions.get('window').height;
@@ -113,14 +114,11 @@ class Detail extends Component {
   }
 
   onImgClick(){
-    ImagePicker.launchImageLibrary({}, (response) => {
-      if(response.didCancel){
-        return;
-      }
+    SYImagePicker.asyncShowImagePicker({ imageCount:1 }).then(photos => {
       this.state.curItem.image = {
-        width: response.width,
-        height: response.height,
-        uri: response.uri
+        width: photos[0].width,
+        height: photos[0].height,
+        uri: photos[0].uri
       };
       this.setState({});
     });
@@ -141,7 +139,8 @@ class Detail extends Component {
     Clipboard.setString(this.state.curItem.desc);
     NativeModules.RNShareModule.shareToTimeLine(this.state.curItem.image.uri, this.state.curItem.desc, (response)=>{
       if(response.code !== 'SUCCESS'){
-        Toast.fail(response.msg);
+        // Toast.fail(response.msg);
+        console.log(response.msg);
         return;
       }
     });
@@ -150,7 +149,8 @@ class Detail extends Component {
   saveItem(){
     let curItem = this.state.curItem;
     if(!curItem.desc || !curItem.image.uri){
-      Toast.show('请设置分享内容');
+      // Toast.show('请设置分享内容');
+      console.log('请设置分享内容');
       return false;
     }
 

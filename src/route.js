@@ -27,7 +27,7 @@ const defaultNavigatorConfig = {
 	    }
 	},
 	cardStyle:{
-		backgroundColor:'#ccc'
+		// backgroundColor:'#ccc'
 	}
 }
 

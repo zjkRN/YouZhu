@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import SYImagePicker from 'react-native-syan-image-picker'
 
-import ImagePicker from 'react-native-image-picker';
 import LocalStorage from '../../utils/localStorage';
 import EventTypes from '../../config/eventTypes';
 
@@ -95,32 +95,16 @@ class List extends Component {
   }
 
   onBtnAddClick(){
-    const photoOptions = {
-      //底部弹出框选项
-      // title:'请选择',
-      // cancelButtonTitle:'取消',
-      // takePhotoButtonTitle:'拍照',
-      // chooseFromLibraryButtonTitle:'选择相册',
-      // quality:0.75,
-      // allowsEditing:true,
-      // noData:false,
-      // storageOptions: {
-      //     skipBackup: true,
-      //     path:'images'
-      // }
-    }
-    ImagePicker.launchImageLibrary(photoOptions, (response) => {
-      if(response.didCancel){
-        return;
-      }
+    SYImagePicker.asyncShowImagePicker({ imageCount:1 }).then(photos => {
       let curItem = {
         image:{
-          width: response.width,
-          height: response.height,
-          uri: response.uri
+          width: photos[0].width,
+          height: photos[0].height,
+          uri: photos[0].uri
         }
-      }
-      this.props.navigation.navigate('Detail',{item: curItem});
+      };
+
+      this.props.navigation.navigate('Detail', {item: curItem});
     });
   }
 

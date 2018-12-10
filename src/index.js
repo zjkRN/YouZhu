@@ -3,9 +3,9 @@
 import React from 'react';
 import SplashScreen from 'rn-splash-screen';
 
-// import RootNavigator from './route';
+import RootNavigator from './route';
 import Guide from './views/Guide';
-import ImagePicker from './views/ImagePicker';
+// import ImagePicker from './views/ImagePicker';
 
 import {
 	AsyncStorage
@@ -23,7 +23,7 @@ class App extends React.Component {
     if(this.state.showGuide){
       return <Guide />;
     }
-    return <ImagePicker />;
+    return <RootNavigator />;
   }
 
   componentDidMount(){
