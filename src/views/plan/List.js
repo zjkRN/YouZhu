@@ -105,6 +105,8 @@ class List extends Component {
       };
 
       this.props.navigation.navigate('Detail', {item: curItem});
+    }).catch(err=>{
+      console.log(err.message);
     });
   }
 

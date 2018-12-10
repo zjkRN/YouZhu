@@ -121,6 +121,8 @@ class Detail extends Component {
         uri: photos[0].uri
       };
       this.setState({});
+    }).catch(err=>{
+      console.log(err.message);
     });
   }
 
