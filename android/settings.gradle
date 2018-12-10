@@ -1,4 +1,6 @@
 rootProject.name = 'YouZhu'
+include ':react-native-syan-image-picker'
+project(':react-native-syan-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-syan-image-picker/android')
 include ':rn-splash-screen'
 project(':rn-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/rn-splash-screen/android')
 
