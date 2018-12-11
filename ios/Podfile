@@ -1,0 +1,42 @@
+# Uncomment the next line to define a global platform for your project
+ platform :ios, '9.0'
+
+target 'YouZhu' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for YouZhu
+
+  inherit! :search_paths
+  # Pods for testing
+  pod 'ReactiveObjC'
+  pod 'SDWebImage'
+  pod 'AFNetworking'
+  pod "yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+      'Core',
+      'ART',
+      'DevSupport',
+      'RCTActionSheet',
+      'RCTGeolocation',
+      'RCTImage',
+      'RCTNetwork',
+      'RCTPushNotification',
+      'RCTSettings',
+      'RCTText',
+      'RCTVibration',
+      'RCTWebSocket',
+      'RCTLinkingIOS',
+      #'BatchedBridge',
+      #rn > 0.45 version need,it will be deprecated and removed in a future
+      # Add any other subspecs you want to use in your project
+  ]
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  
+  # pod 'RNSyanImagePicker', :path => '../node_modules/react-native-syan-image-picker/ios'
+  # pod 'rn-splash-screen', :path => '../node_modules/rn-splash-screen'
+
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
+end
