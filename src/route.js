@@ -27,7 +27,7 @@ const defaultNavigatorConfig = {
 	    }
 	},
 	cardStyle:{
-		// backgroundColor:'#ccc'
+		backgroundColor:'#f9f9f9'
 	}
 }
 
@@ -46,10 +46,12 @@ const MeNavigator = createStackNavigator({
 	initialRouteName:'Me',
 });
 
-const HomeNavigator = createDrawerNavigator({
+const HomeNavigator = createStackNavigator({
 	Home:Home
 },{
+	...defaultNavigatorConfig,
 	initialRouteName:'Home',
+	headerMode:'none',
 });
 
 const TabNavigator = createBottomTabNavigator({
