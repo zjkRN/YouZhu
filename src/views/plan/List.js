@@ -95,23 +95,20 @@ class List extends Component {
   }
 
   onBtnAddClick(){
-    SYImagePicker.asyncShowImagePicker({ imageCount:1 }).then(photos => {
-      let curItem = {
-        image:{
-          width: photos[0].width,
-          height: photos[0].height,
-          uri: photos[0].uri
-        }
-      };
-
-      this.props.navigation.navigate('Detail', {item: curItem});
+    SYImagePicker.asyncShowImagePicker({ imageCount:3 }).then(photos => {
+      let curItem = {};
+      curItem.image = { 
+        width:photos[0].width, 
+        height:photos[0].height, 
+        uri:photos[0].uri };
+      this.props.navigation.navigate('PlanDetail', { item: curItem });
     }).catch(err=>{
       console.log(err.message);
     });
   }
 
   onItemClick(item){
-    this.props.navigation.navigate('Detail', {item: item});
+    this.props.navigation.navigate('PlanDetail', {item: item});
   }
 
   onDeleteClick(item){

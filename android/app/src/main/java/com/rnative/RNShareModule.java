@@ -7,7 +7,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.widget.Toast;
 
 import com.facebook.react.bridge.Arguments;
@@ -17,6 +19,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableArray;
 
 import org.json.JSONObject;
 
@@ -31,6 +34,12 @@ public class RNShareModule extends ReactContextBaseJavaModule {
 
     public RNShareModule(ReactApplicationContext reactContext) {
         super(reactContext);
+        // android 7.0系统解决拍照的问题
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            builder.detectFileUriExposure();
+        }
         this.mContext = reactContext;
     }
 
@@ -50,19 +59,25 @@ public class RNShareModule extends ReactContextBaseJavaModule {
         }
 
         try{
+            ArrayList<Uri> imageList = new ArrayList<>();
             Uri uri = Uri.parse(imgPath);
+            imageList.add(uri);
+
+            // imgArray ReadableArray
+//             for (int i = 0; i < imgArray.size() ; i++ ) {
+//                 Uri uri = Uri.parse(imgArray.getString(i));
+//                 imageList.add(uri);
+//             }
 //            File file = new File(imgPath).getAbsoluteFile();
 //            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N){// 24以下  android 7.0以下
 //                uri = Uri.fromFile(file);
 //            } else { // android 7.0 以上
 //                uri = Uri.parse(MediaStore.Images.Media.insertImage(this.mContext.getContentResolver(), file.getAbsolutePath(), file.getName(),null));
 //            }
-            ArrayList<Uri> imageList = new ArrayList<>();
-            imageList.add(uri);
 
             Intent weChatIntent = new Intent();
             //com.tencent.mm.ui.tools.ShareImgUI 是分享到微信好友
-            // com.tencent.mm.ui.tools.ShareToTimeLineUI 是分享到微信朋友圈，最多可以分享九张图到微信朋友圈
+            // com.tencent.mm.ui.tools.ShareToTimeLineUI 是分享到微信朋友圈，最多可以分享九张图到微信朋友圈 系统只支持分享一张到朋友圈
             weChatIntent.setComponent(new ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI"));
             weChatIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
             weChatIntent.setType("image/*");

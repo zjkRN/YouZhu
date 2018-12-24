@@ -1,12 +1,16 @@
 
 import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import Home from './views/Home';
+import Index from './views/home/Index';
+import AdPage from './views/home/AdPage';
+
+import ProList from './views/product/List';
+
 import PlanList from './views/plan/List';
 import PlanDetail from './views/plan/Detail';
-import Me from './views/me/Me';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Me from './views/me/Me';
 
 import {
 	createStackNavigator, 
@@ -32,11 +36,11 @@ const defaultNavigatorConfig = {
 }
 
 const PlanNavigator = createStackNavigator({
-	Home: PlanList,
-	Detail: PlanDetail,
+	PlanList: PlanList,
+	PlanDetail: PlanDetail,
 }, {
 	...defaultNavigatorConfig,
-	initialRouteName:'Home',
+	initialRouteName:'PlanList',
 });
 
 const MeNavigator = createStackNavigator({
@@ -46,11 +50,19 @@ const MeNavigator = createStackNavigator({
 	initialRouteName:'Me',
 });
 
-const HomeNavigator = createStackNavigator({
-	Home:Home
+const ProductNavigator = createStackNavigator({
+	ProList:ProList
 },{
 	...defaultNavigatorConfig,
-	initialRouteName:'Home',
+	initialRouteName:'ProList'
+});
+
+const HomeNavigator = createStackNavigator({
+	Index: Index,
+	AdPage: AdPage,
+},{
+	...defaultNavigatorConfig,
+	initialRouteName:'Index',
 	headerMode:'none',
 });
 
@@ -59,9 +71,13 @@ const TabNavigator = createBottomTabNavigator({
 			screen: HomeNavigator,
 			navigationOptions:{ title: '首页'}
 		},
+		TabProduct: {
+			screen: ProductNavigator,
+			navigationOptions:{ title: '推荐'}
+		},
 		TabPlan: { 
 			screen: PlanNavigator, 
-			navigationOptions:{ title: '计划'}
+			navigationOptions:{ title: '行程'}
 		},
 		TabMe: {
 			screen: MeNavigator,
@@ -74,17 +90,21 @@ const TabNavigator = createBottomTabNavigator({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
-        if (routeName === 'TabHome') {
-      		return <AntDesign name={'home'} size={25} color={tintColor} />;
-
+        switch(routeName){
+        	case 'TabHome':
+        		iconName = 'home';
+        		break;
+        	case 'TabProduct':
+        		iconName = 'find';
+        		break;
+        	case 'TabPlan':
+        		iconName = 'rocket1';
+        		break;
+        	case 'TabMe':
+        		iconName = 'user';
+        		break;
         }
-        if (routeName === 'TabPlan') {
-      		return <AntDesign name={'rocket1'} size={25} color={tintColor} />;
-        }
-
-        if(routeName === 'TabMe'){
-      		return <AntDesign name={'user'} size={25} color={tintColor} />;
-        }
+      	return  <AntDesign name={iconName} size={25} color={tintColor} />;
       },
     }),
     // tabBarComponent: TabBarBottom,

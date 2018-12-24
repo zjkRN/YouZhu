@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SYImagePicker from 'react-native-syan-image-picker'
 
-
 import LocalStorage from '../../utils/localStorage';
 import Utils from '../../utils/utils';
 import EventTypes from '../../config/eventTypes';
@@ -23,8 +22,7 @@ import {
 
 // import {Toast} from 'antd-mobile-rn';
 
-let screenW = Dimensions.get('window').width;
-let screenH = Dimensions.get('window').height;
+let { width: screenW, height: screenH } = Dimensions.get('window');
 
 let dataItems = [];
 const colors = ['#2f54eb','#108ee9','#2db7f5','#1890ff', '#6699ff',
@@ -62,6 +60,7 @@ class Detail extends Component {
     super(props);
   
     this.state = {
+      imgIndex:0,
       curItem:{
         image:{}
       }
@@ -69,24 +68,25 @@ class Detail extends Component {
   }
 
   render() {
+    let { curItem } = this.state;
     return (
       <ScrollView style={styles.container}>
         <View style={styles.row}>
           <TextInput
-            style={[styles.input, { height:90}]}
+            style={styles.input}
             multiline={true}
             numberOfLines = {4}
             nderlineColorAndroid="transparent"
             placeholder="描述"
-            onChangeText={(desc)=>{ this.state.curItem.desc = desc; this.setState({});}}
-            value={this.state.curItem.desc}/>
+            onChangeText={(desc)=>{ curItem.desc = desc; this.setState({});}}
+            value={curItem.desc}/>
         </View>
         <TouchableOpacity
           activeOpacity={1}
           onPress={()=> this.onImgClick()}>
           <Image
-            style={{ width:screenW-30,height:this.getImgHeight(), resizeMode:'cover' }}
-            source={{uri:this.state.curItem.image.uri}} />
+            style={{ resizeMode:'cover', width:screenW-30, height:this.getImgHeight()}}
+            source={{uri:curItem.image.uri}} />
         </TouchableOpacity>
       </ScrollView>
     );
@@ -101,9 +101,9 @@ class Detail extends Component {
     LocalStorage.get('dataItems').then(res => {
       dataItems = res || [];
     });
-
     this.state.curItem = this.props.navigation.getParam('item', this.state.curItem);
     this.setState({});
+
   }
 
   getImgHeight(){
@@ -131,15 +131,15 @@ class Detail extends Component {
       return;
     }
     this.props.navigation.goBack();
-    DeviceEventEmitter.emit(EventTypes.EVENT_BACK_HOME);
   }
 
   onShare(){
     if(!this.saveItem()){
       return;
     }
-    Clipboard.setString(this.state.curItem.desc);
-    NativeModules.RNShareModule.shareToTimeLine(this.state.curItem.image.uri, this.state.curItem.desc, (response)=>{
+    const { curItem } = this.state;
+    Clipboard.setString(curItem.desc);
+    NativeModules.RNShareModule.shareToTimeLine(curItem.image.uri, curItem.desc, (response)=>{
       if(response.code !== 'SUCCESS'){
         // Toast.fail(response.msg);
         console.log(response.msg);
@@ -149,8 +149,8 @@ class Detail extends Component {
   }
 
   saveItem(){
-    let curItem = this.state.curItem;
-    if(!curItem.desc || !curItem.image.uri){
+    let { curItem } = this.state;
+    if(!curItem.desc){
       // Toast.show('请设置分享内容');
       console.log('请设置分享内容');
       return false;
@@ -168,6 +168,8 @@ class Detail extends Component {
     }
 
     LocalStorage.save('dataItems', dataItems);
+    DeviceEventEmitter.emit(EventTypes.EVENT_BACK_HOME);
+    
     return true;
   }
 }
@@ -182,15 +184,10 @@ const styles = StyleSheet.create({
     flex:1,
     paddingBottom: 20,
     fontSize:16,
-
-  },
-  label:{
-    color:'#bbb', 
-    fontSize:12,
-    marginBottom:5,
   },
   input:{
     lineHeight:20,
+    height:90,
     paddingVertical:5,
     paddingHorizontal:10,
     borderStyle:'solid',
