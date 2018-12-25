@@ -13,6 +13,12 @@ const {width, height} = Dimensions.get('window');
 
 class AdPage extends Component {
 	
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('title')
+    }
+  }
+
 	constructor(props) {
 	  super(props);
 	
@@ -30,6 +36,7 @@ class AdPage extends Component {
           javaScriptEnabled={true}
           domStorageEnabled={true}
           scalesPageToFit={false}
+          onNavigationStateChange={this.onNavigationStateChange}
           />
     );
   }
@@ -37,6 +44,13 @@ class AdPage extends Component {
   componentDidMount(){
   	this.state.url = this.props.navigation.getParam('url', '');
     this.setState({});
+  }
+
+  onNavigationStateChange = (event) => {
+    const { navigation } = this.props;
+    navigation.setParams({
+      title: event.title
+    });
   }
 }
 

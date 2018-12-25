@@ -93,7 +93,8 @@ class Detail extends Component {
   }
 
   componentDidMount(){
-    this.props.navigation.setParams({
+    const { navigation } = this.props;
+    navigation.setParams({
       onSave: () => this.onSave(),
       onShare:() => this.onShare()
     });
@@ -101,7 +102,7 @@ class Detail extends Component {
     LocalStorage.get('dataItems').then(res => {
       dataItems = res || [];
     });
-    this.state.curItem = this.props.navigation.getParam('item', this.state.curItem);
+    this.state.curItem = navigation.getParam('item', this.state.curItem);
     this.setState({});
 
   }

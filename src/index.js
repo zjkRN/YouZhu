@@ -5,8 +5,6 @@ import SplashScreen from 'rn-splash-screen';
 
 import RootNavigator from './route';
 import Guide from './views/Guide';
-// import ImagePicker from './views/demo/ImagePicker';
-// import CarouselPage from './views/demo/CarouselPage';
 
 import {
 	AsyncStorage

@@ -49,6 +49,12 @@ class Index extends Component {
         {id:6, title:'product title 6', image:{width:100, height:300, uri:'https://i.imgur.com/MABUbpDl.jpg'}},
       ],
       hotIndex:0,
+      buttonItems:[
+        { id:1, label:'收藏', icon:'staro', color:colors.white, handle: 'onStar'},
+        { id:2, label:'微信好友', icon:'wechat', color:colors.white, handle:'onShareFriend' },
+        { id:3, label:'朋友圈', icon:'sharealt', color:colors.white, handle:'onShareMoment' },
+        { id:4, label:'复制', icon:'copy1', color:colors.white, handle: 'onCopy'},
+      ]
     };
   }
   render() {
@@ -82,7 +88,7 @@ class Index extends Component {
           />
         </View>
 
-        <View style={[styles.box,styles.shadow, {flexDirection:'row', height:45}]}>
+        <View style={[styles.box, {flexDirection:'row', height:45}]}>
           <Carousel
             ref={(c) => this._noticeCarousel = c }
             data={notices}
@@ -101,10 +107,11 @@ class Index extends Component {
           <AntDesign style={styles.icon} name="right" color={colors.gray} />
         </View>
 
-        <View style={[styles.box, styles.hotBox]}>
+        <View style={styles.box}>
           <View style={styles.boxHeader}>
             <Text style={styles.boxTitle}>热门推荐</Text>
             <TouchableOpacity
+              activeOpacity={1}
               onPress={()=> this.props.navigation.navigate('ProList')}>
               <Text style={styles.more}>
                 更多<AntDesign name='right'  />
@@ -132,7 +139,7 @@ class Index extends Component {
           
         </View>
 
-        <View style={[styles.box, styles.shadow, {display:'none'}]}>
+        <View style={[styles.box, {display:'none'}]}>
           <Text style={styles.boxTitle}>热门推荐</Text>
           <View style={styles.boxContent}>
             <View style={styles.boxItem}>
@@ -203,7 +210,20 @@ class Index extends Component {
             />
           )}
           <View style={styles.hotDescContainer}>
-            <Text style={styles.hotDesc} numberOfLines={3}>这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试</Text>
+            <Text style={styles.hotDesc} numberOfLines={2}>这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试</Text>
+            <View style={{flexDirection:'row',justifyContent:'flex-end'}}>
+            { this.state.buttonItems.map((btn, btnIndex) => (
+                <AntDesign.Button 
+                  key={btn.id}
+                  name={ btn.icon} 
+                  size={20} 
+                  style={{paddingVertical:2}}
+                  color={ btn.color}
+                  onPress={() => this[btn.handle](item)}
+                  underlayColor="transparent"
+                  backgroundColor="transparent"/>
+            ))}
+            </View>
           </View>
         </View>
         
@@ -228,7 +248,7 @@ const styles = StyleSheet.create({
   },
   banner:{
     height: bannerH,
-    backgroundColor:"#f9f9f9",
+    backgroundColor:colors.lightGray,
   },
   slide:{
     flex: 1,
@@ -246,15 +266,8 @@ const styles = StyleSheet.create({
       borderRadius: 4,
       marginHorizontal: 8
   },
-  shadow:{
-    shadowColor:'red',
-    shadowOffset:{ width: 0, height: 5 },
-    shadowOpacity:1,
-    shadowRadius:2,
-    elevation:2,
-  },
   box:{
-    backgroundColor:'#fff',
+    backgroundColor:colors.white,
     paddingVertical:10,
     paddingHorizontal:25,
     marginBottom:15,
@@ -273,7 +286,7 @@ const styles = StyleSheet.create({
   boxTitle:{
     flex:1,
     fontSize:16,
-    color:'#333',
+    color:colors.black,
     fontWeight: 'bold',
   },
   // boxContent:{
@@ -311,7 +324,7 @@ const styles = StyleSheet.create({
     width: hotWidth,
     height: hotHeight,
     paddingHorizontal:10, // 设置slider item 相对 item的位置 决定前后再张图展示展示多少
-    // paddingBottom:18,
+    paddingBottom:18,
   },
   hotShadow:{ // 设置slider 的投影 ios有效：通过在图片下面添加一个色块，给色块加shadow 实现
     position: 'absolute',
@@ -320,7 +333,7 @@ const styles = StyleSheet.create({
     right: hotShadowX,
     bottom: 20,
     borderRadius: borderRadius,
-    backgroundColor:colors.black,
+    backgroundColor:colors.lightGray,
     shadowColor: colors.black,
     shadowOpacity: 0.85,
     shadowOffset: { width: 0, height: 10 },
@@ -337,13 +350,13 @@ const styles = StyleSheet.create({
     paddingHorizontal:10
   },
   hotDesc:{
-    color: '#fff',
+    color: colors.white,
     fontSize:12,
     lineHeight:20,
   },
   imageContainer:{
     flex: 1,
-    backgroundColor:'red',
+    // backgroundColor:'red',
     overflow:'hidden',
     marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
     borderRadius: IS_IOS ? 0 : borderRadius,
