@@ -24,16 +24,23 @@ const styles = StyleSheet.create({
   },
   groupRow:{
     flexDirection:'row',
-    paddingVertical:15,
+    paddingVertical:10,
     borderColor: colors.lightGray,
     borderBottomWidth:1,
   },
-  groupTxt:{
+  groupContent:{
     flex:1,
+    paddingHorizontal:10,
+  },
+  groupTitle:{
     color: colors.black,
     lineHeight:20,
-    paddingHorizontal:10,
     fontSize:14,
+  },
+  groupDesc:{
+    color: colors.gray,
+    lineHeight:20,
+    fontSize:12,
   }
 });
 

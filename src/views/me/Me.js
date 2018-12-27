@@ -23,6 +23,7 @@ class Me extends Component {
     return (
       <ScrollView >
         <View style={styles.header}>
+          <Text>我的</Text>
         </View>
         <View style={styles.group}>
           <TouchableOpacity 

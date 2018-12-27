@@ -7,7 +7,8 @@ import RootNavigator from './route';
 import Guide from './views/Guide';
 
 import {
-	AsyncStorage
+	AsyncStorage,
+  StatusBar,
 } from 'react-native';
 
 class App extends React.Component {
@@ -19,7 +20,6 @@ class App extends React.Component {
     };
   }
   render() {
-    // return <CarouselPage />
     if(this.state.showGuide){
       return <Guide />;
     }

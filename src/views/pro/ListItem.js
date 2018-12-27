@@ -24,7 +24,6 @@ class ListItem extends Component {
 
 	constructor(props) {
 	  super(props);
-		console.log(this)
 	  this.state = {
 	  	btnConf:{
 	  		star: { label:'收藏', icon:'staro', color:'#333', handle: 'onStar'},

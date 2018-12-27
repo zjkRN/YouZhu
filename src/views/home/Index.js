@@ -12,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  StatusBar,
 } from 'react-native';
 
 import commonStyles, { colors } from '../common.style';
@@ -59,8 +60,12 @@ class Index extends Component {
   }
   render() {
     const { banners, bannerIndex, notices, hotProducts, hotIndex} = this.state;
+    const { navigation } = this.props;
     return (
       <ScrollView style={styles.wrapper}>
+        <StatusBar 
+          barStyle={'light-content'} 
+          backgroundColor={colors.black}/>
         <View style={styles.banner}>
           <Carousel
             ref={(c) => this._bannerCarousel = c }
@@ -104,7 +109,11 @@ class Index extends Component {
             autoplayDelay={500}
             autoplayInterval={3000}
           />
-          <AntDesign style={styles.icon} name="right" color={colors.gray} />
+          <AntDesign 
+            style={styles.icon} 
+            name="right" 
+            onPress={() => navigation.navigate('Message')}
+            color={colors.gray} />
         </View>
 
         <View style={styles.box}>
@@ -305,12 +314,12 @@ const styles = StyleSheet.create({
   // },
   icon:{
     fontSize:14,
-    lineHeight:20,
+    lineHeight:25,
   },
   message:{
     flex:1,
     fontSize:14,
-    lineHeight:20,
+    lineHeight:25,
     marginHorizontal:10,
   },
   hotSlider: {

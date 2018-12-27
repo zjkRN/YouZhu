@@ -16,6 +16,7 @@ import ProDetail from './views/pro/Detail';
 
 import Me from './views/me/Me';
 import Message from './views/me/Message';
+import MessageDetail from './views/me/MessageDetail';
 import ShareRecord from './views/me/ShareRecord';
 import About from './views/me/About';
 
@@ -39,7 +40,7 @@ const defaultNavigatorConfig = {
     }
 	},
 	cardStyle:{
-		backgroundColor:'#f9f9f9'
+		backgroundColor:'#f8f8f8'
 	}
 }
 
@@ -86,13 +87,14 @@ const MeNavigator = createStackNavigator({
 		},
 	},
 	PlanDetail: ProDetail,
-	Message: {
+	Message:{
 		screen: Message,
 		navigationOptions:{
 			title:'我的消息',
 			headerBackTitle:null,
 		},
 	},
+	MessageDetail:MessageDetail,
 	ShareRecord:{
 		screen: ShareRecord,
 		navigationOptions:{
@@ -136,6 +138,13 @@ const HomeNavigator = createStackNavigator({
 		}
 	},
 	AdPage: AdPage,
+	Message: {
+		screen: Message,
+		navigationOptions:{
+			title:'我的消息',
+			headerBackTitle:null,
+		},
+	},
 },{
 	...defaultNavigatorConfig,
 	initialRouteName:'Index',

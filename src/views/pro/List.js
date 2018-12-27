@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   DeviceEventEmitter,
   FlatList,
+  StatusBar,
 } from 'react-native';
 
 import LocalStorage from '../../utils/localStorage';
@@ -28,9 +29,9 @@ class PlanList extends Component {
       type: props.navigation.getParam('type'),
       searchValue:'',
       dataItems:[
-        {id:1, desc:'test desc 1', image:{width:100, height:300, uri:'http://g.hiphotos.baidu.com/image/pic/item/024f78f0f736afc3cf9d3fdebe19ebc4b64512f3.jpg'}},
-        {id:2, desc:'test desc 2', image:{width:100, height:300, uri:'http://a.hiphotos.baidu.com/image/pic/item/d439b6003af33a87112d6dadcb5c10385243b5c1.jpg'}},
-        {id:3, desc:'test desc 3', image:{width:100, height:300, uri:'http://d.hiphotos.baidu.com/image/pic/item/2934349b033b5bb512407b473bd3d539b700bcf0.jpg'}},
+        {id:1, content:'test content 1', image:{width:100, height:300, uri:'http://g.hiphotos.baidu.com/image/pic/item/024f78f0f736afc3cf9d3fdebe19ebc4b64512f3.jpg'}},
+        {id:2, content:'test content 2', image:{width:100, height:300, uri:'http://a.hiphotos.baidu.com/image/pic/item/d439b6003af33a87112d6dadcb5c10385243b5c1.jpg'}},
+        {id:3, content:'test content 3', image:{width:100, height:300, uri:'http://d.hiphotos.baidu.com/image/pic/item/2934349b033b5bb512407b473bd3d539b700bcf0.jpg'}},
       ]
     };
   }
