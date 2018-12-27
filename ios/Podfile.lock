@@ -50,6 +50,10 @@ PODS:
     - React/fishhook
     - React/RCTBlob
   - ReactiveObjC (3.1.0)
+  - RNDeviceInfo (0.21.5):
+    - React
+  - RNSVG (8.0.9):
+    - React
   - RNVectorIcons (6.1.0):
     - React
   - SDWebImage (4.4.2):
@@ -73,6 +77,8 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - ReactiveObjC
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - SDWebImage
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -86,6 +92,10 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -95,10 +105,12 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
+  RNSVG: 6252323c0312735f0af5f58b5adf2965b6a9ffbf
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: f816c048fb081578e16e73d88307d513b4c9a842
+PODFILE CHECKSUM: b292967067dcf70a361ddd6e0b0212f66ddf26fb
 
 COCOAPODS: 1.5.3

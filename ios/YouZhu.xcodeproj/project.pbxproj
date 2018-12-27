@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* YouZhuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* YouZhuTests.m */; };
+		04C723EF21D474990019D8FA /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C723E821D4747D0019D8FA /* libRNDeviceInfo.a */; };
 		04E6F18D21BE6F3100142A77 /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04E6F18C21BE6F3000142A77 /* TZImagePickerController.bundle */; };
 		0C12E5653C2941E18920D1DE /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C68FFC7B1AEC4054ACE5EEBE /* MaterialCommunityIcons.ttf */; };
 		0DA71C3A3FDA4005BDBA51E9 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49CBE3AB4404FFB8D03AC51 /* Zocial.ttf */; };
@@ -103,6 +104,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = YouZhu;
+		};
+		04C723E721D4747D0019D8FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04C723BC21D4747D0019D8FA /* RNDeviceInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA5891D81BA9A9FC002B4DB2;
+			remoteInfo = RNDeviceInfo;
+		};
+		04C723E921D4747D0019D8FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04C723BC21D4747D0019D8FA /* RNDeviceInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E72EC1401F7ABB5A0001BC90;
+			remoteInfo = "RNDeviceInfo-tvOS";
 		};
 		04E6F14C21BE509E00142A77 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -383,6 +398,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* YouZhuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YouZhuTests.m; sourceTree = "<group>"; };
 		019E3D97CEC64D3B930593BF /* Pods-YouZhu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouZhu.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouZhu/Pods-YouZhu.release.xcconfig"; sourceTree = "<group>"; };
+		04C723BC21D4747D0019D8FA /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		04E6F18C21BE6F3000142A77 /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TZImagePickerController.bundle; path = "../node_modules/react-native-syan-image-picker/ios/TZImagePickerController/TZImagePickerController.bundle"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -441,6 +457,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C723EF21D474990019D8FA /* libRNDeviceInfo.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -545,6 +562,15 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		04C723BD21D4747D0019D8FA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04C723E821D4747D0019D8FA /* libRNDeviceInfo.a */,
+				04C723EA21D4747D0019D8FA /* libRNDeviceInfo-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		04E6F12321BE509C00142A77 /* Recovered References */ = {
@@ -700,6 +726,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				04C723BC21D4747D0019D8FA /* RNDeviceInfo.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -942,6 +969,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 04C723BD21D4747D0019D8FA /* Products */;
+					ProjectRef = 04C723BC21D4747D0019D8FA /* RNDeviceInfo.xcodeproj */;
+				},
+				{
 					ProductGroup = 04E6F20321BE8D5C00142A77 /* Products */;
 					ProjectRef = 5B5C8E81B26A4368A45D4B52 /* RNGestureHandler.xcodeproj */;
 				},
@@ -998,6 +1029,20 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04C723E821D4747D0019D8FA /* libRNDeviceInfo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNDeviceInfo.a;
+			remoteRef = 04C723E721D4747D0019D8FA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04C723EA21D4747D0019D8FA /* libRNDeviceInfo-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNDeviceInfo-tvOS.a";
+			remoteRef = 04C723E921D4747D0019D8FA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		04E6F14D21BE509E00142A77 /* libRCTSplashScreen.a */ = {
@@ -1547,6 +1592,8 @@
 					"$(SRCROOT)/../node_modules/react-native-syan-image-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/React/**",
 				);
 				INFOPLIST_FILE = YouZhu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1574,6 +1621,8 @@
 					"$(SRCROOT)/../node_modules/react-native-syan-image-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/React/**",
 				);
 				INFOPLIST_FILE = YouZhu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

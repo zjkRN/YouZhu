@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import DeviceInfo from 'react-native-device-info'
 
 import {
   StyleSheet,
@@ -20,10 +21,11 @@ class Me extends Component {
 
   render() {
     const { navigation } = this.props;
+    let uniqueId = DeviceInfo.getUniqueID();
     return (
       <ScrollView >
         <View style={styles.header}>
-          <Text>我的</Text>
+          <Text>我的 {uniqueId}</Text>
         </View>
         <View style={styles.group}>
           <TouchableOpacity 
@@ -80,6 +82,8 @@ const styles = StyleSheet.create({
   header:{
     height:200,
     backgroundColor:colors.gray,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   group:{
     marginTop:10,
