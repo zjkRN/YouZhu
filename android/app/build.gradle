@@ -113,6 +113,14 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        config {
+            keyAlias 'test'
+            keyPassword '123456'
+            storeFile file('/Users/mac/Desktop/Applications/Android/test.jks')
+            storePassword '123456'
+        }
+    }
     splits {
         abi {
             reset()
@@ -123,6 +131,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.config
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }

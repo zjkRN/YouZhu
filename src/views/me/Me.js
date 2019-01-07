@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import DeviceInfo from 'react-native-device-info'
+import Toast from 'react-native-root-toast';
 
 import {
   StyleSheet,
@@ -10,15 +11,12 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
 import commonStyles, {colors} from '../common.style';
 
 class Me extends Component {
 	
-	static navigationOptions =  {
-    title:'我的',
-  };
-
   render() {
     const { navigation } = this.props;
     let uniqueId = DeviceInfo.getUniqueID();
@@ -69,9 +67,24 @@ class Me extends Component {
             <Text style={styles.txt}>关于我们</Text>
             <AntDesign name='right' color={colors.gray} size={12} style={{paddingTop:4}}/>
           </TouchableOpacity>
+
+          <TouchableOpacity 
+            activeOpacity={1} 
+            onPress={()=> this._onCacheClear()}
+            style={styles.row}>
+            <AntDesign name='infocirlceo' color={colors.gray} size={18} style={{paddingTop:1}}/>
+            <Text style={styles.txt}>清理缓存</Text>
+            <AntDesign name='right' color={colors.gray} size={12} style={{paddingTop:4}}/>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );
+  }
+
+  _onCacheClear(){
+    Toast.show('测试提示消息');
+    
+    AsyncStorage.clear();
   }
 }
 

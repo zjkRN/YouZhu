@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination, ParallaxImage } from 'react-native-snap-carousel';
+import Toast from 'react-native-root-toast';
 
 import {
   StyleSheet,
@@ -16,6 +17,9 @@ import {
 } from 'react-native';
 
 import commonStyles, { colors } from '../common.style';
+// import {Loading} from '../../components/Loading';
+import HttpRequest from '../../utils/httpRequest';
+
 
 const { width:screenW, height: screenH } = Dimensions.get('window');
 const bannerH = screenW*35/75;
@@ -36,18 +40,14 @@ class Index extends Component {
   
     this.state = {
       banners:[
-        {id:1, name:'banner1', imgUri:'https://i.imgur.com/MABUbpDl.jpg', link:'http://www.58.com'}, 
-        {id:2, name:'banner2', imgUri:'https://i.imgur.com/UPrs1EWl.jpg', link:'https://www.baidu.com'},
+        {id:1, name:'banner1', image_url:'https://i.imgur.com/MABUbpDl.jpg', link:'http://www.58.com'}, 
       ],
       bannerIndex: 0,
-      notices:[{id:1, name:'公告1'}, {id:2, name:'公告2'}],
+      messages:[
+        {id:1, content:'公告1'}, 
+      ],
       hotProducts:[
         {id:1, title:'product title 1', image:{width:100, height:300, uri:'https://i.imgur.com/UYiroysl.jpg'}},
-        {id:2, title:'product title 2', image:{width:100, height:300, uri:'https://i.imgur.com/UPrs1EWl.jpg'}},
-        {id:3, title:'product title 3', image:{width:100, height:300, uri:'https://i.imgur.com/MABUbpDl.jpg'}},
-        {id:4, title:'product title 4', image:{width:100, height:300, uri:'https://i.imgur.com/UYiroysl.jpg'}},
-        {id:5, title:'product title 5', image:{width:100, height:300, uri:'https://i.imgur.com/UPrs1EWl.jpg'}},
-        {id:6, title:'product title 6', image:{width:100, height:300, uri:'https://i.imgur.com/MABUbpDl.jpg'}},
       ],
       hotIndex:0,
       buttonItems:[
@@ -59,7 +59,7 @@ class Index extends Component {
     };
   }
   render() {
-    const { banners, bannerIndex, notices, hotProducts, hotIndex} = this.state;
+    const { banners, bannerIndex, messages, hotProducts, hotIndex} = this.state;
     const { navigation } = this.props;
     return (
       <ScrollView style={styles.wrapper}>
@@ -95,9 +95,9 @@ class Index extends Component {
 
         <View style={[styles.box, {flexDirection:'row', height:45}]}>
           <Carousel
-            ref={(c) => this._noticeCarousel = c }
-            data={notices}
-            renderItem={this._renderNotice}
+            ref={(c) => this._msgCarousel = c }
+            data={messages}
+            renderItem={this._renderMsg}
             sliderWidth={screenW - 30}
             sliderHeight={44}
             itemHeight={44}
@@ -175,20 +175,20 @@ class Index extends Component {
       <TouchableOpacity
         activeOpacity={1}
         style={{flex:1}}
-        onPress={()=> this.onBannerClick(item)}>
+        onPress={() => this._onBannerClick(item)}>
           <Image 
-          source={{uri:item.imgUri}} 
+          source={{uri:item.image_url}} 
           style={{flex:1}} 
           resizeMode='contain' />
       </TouchableOpacity>
     );
   }
 
-  _renderNotice = ({item, index}) => {
+  _renderMsg = ({item, index}) => {
     return (
       <View style={{flexDirection:'row'}} key={`entry-${index}`} numberOfLines={1}>
         <AntDesign style={styles.icon} name="sound"/>
-        <Text style={styles.message}>{`银行卡尾号，${item.name}放款元`}</Text>
+        <Text style={styles.message}>{item.content}</Text>
       </View>
     );
   }
@@ -219,7 +219,7 @@ class Index extends Component {
             />
           )}
           <View style={styles.hotDescContainer}>
-            <Text style={styles.hotDesc} numberOfLines={2}>这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试这只是一个测试</Text>
+            <Text style={styles.hotDesc} numberOfLines={2}>{item.content}</Text>
             <View style={{flexDirection:'row',justifyContent:'flex-end'}}>
             { this.state.buttonItems.map((btn, btnIndex) => (
                 <AntDesign.Button 
@@ -240,13 +240,26 @@ class Index extends Component {
     );
   }
 
-  onBannerClick(banner){
+  _onBannerClick = (banner) => {
     if(!banner.link){
       return;
     }
     this.props.navigation.navigate('AdPage',{ url: banner.link });
   }
 
+  componentDidMount(){
+    this.loadData();
+  }
+
+  loadData(){
+    HttpRequest.get('/').then(data => {
+      this.setState({
+        banners:data.banners,
+        messages:data.messages,
+        hotProducts:data.products
+      });
+    });
+  }
 }
 
 
@@ -362,6 +375,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize:12,
     lineHeight:20,
+    height:40,
   },
   imageContainer:{
     flex: 1,

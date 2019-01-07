@@ -15,7 +15,7 @@ class AdPage extends Component {
 	
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('title')
+      title: navigation.getParam('title') || '加载中...'
     }
   }
 
@@ -48,9 +48,12 @@ class AdPage extends Component {
 
   onNavigationStateChange = (event) => {
     const { navigation } = this.props;
-    navigation.setParams({
-      title: event.title
-    });
+    if(!event.loading){
+      navigation.setParams({
+        title: event.title
+      });
+    }
+    
   }
 }
 

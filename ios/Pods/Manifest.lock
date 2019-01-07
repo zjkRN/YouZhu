@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - RCTSplashScreen (5.2.0)
   - React (0.57.7):
     - React/Core (= 0.57.7)
   - React/ART (0.57.7):
@@ -63,6 +64,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - RCTSplashScreen (from `../node_modules/rn-splash-screen`)
   - React/ART (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -90,6 +92,8 @@ SPEC REPOS:
     - SDWebImage
 
 EXTERNAL SOURCES:
+  RCTSplashScreen:
+    :path: "../node_modules/rn-splash-screen"
   React:
     :path: "../node_modules/react-native"
   RNDeviceInfo:
@@ -103,6 +107,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  RCTSplashScreen: 8a25f92fb1c958b73852224a6621214720ae8688
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
@@ -111,6 +116,6 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: b292967067dcf70a361ddd6e0b0212f66ddf26fb
+PODFILE CHECKSUM: 413c3fa818fc4dd8505b4121aabef9c86c12e0ae
 
 COCOAPODS: 1.5.3

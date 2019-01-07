@@ -76,7 +76,6 @@ class ListItem extends Component {
 
   onStar(item){
   	item.isStar = !item.isStar;
-  	console.log(item)
   	DeviceEventEmitter.emit(EventTypes.EVENT_STAR, item);
   }
 
@@ -89,8 +88,6 @@ class ListItem extends Component {
   }
   
   onCopy(item){
-  	console.log(item)
-  	console.log(this)
   	this.props.navigation.navigate('PlanDetail', { item: item });
   }
 

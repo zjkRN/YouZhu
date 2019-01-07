@@ -1,0 +1,1 @@
+../../../../../node_modules/rn-splash-screen/ios/RCTSplashScreen/RCTSplashScreen.h

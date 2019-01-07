@@ -3,8 +3,11 @@ import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {
-  View,
-} from 'react-native';
+	createStackNavigator, 
+	createAppContainer,
+	createDrawerNavigator,
+	createBottomTabNavigator
+} from 'react-navigation';
 
 import {colors} from './views/common.style';
 
@@ -20,13 +23,9 @@ import MessageDetail from './views/me/MessageDetail';
 import ShareRecord from './views/me/ShareRecord';
 import About from './views/me/About';
 
+import Guide from './views/Guide';
 
-import {
-	createStackNavigator, 
-	createAppContainer,
-	createDrawerNavigator,
-	createBottomTabNavigator
-} from 'react-navigation';
+
 
 const defaultNavigatorConfig = {
 	headerLayoutPreset:'center',
@@ -168,7 +167,7 @@ const TabNavigator = createBottomTabNavigator({
 			navigationOptions:{ title: '我的' }
 		}
 	},{
-		initialRouteName:'TabMe',
+		initialRouteName:'TabHome',
 		// backBehavior:'none',
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
@@ -202,11 +201,27 @@ const TabNavigator = createBottomTabNavigator({
  });
 
 
+const AppStactNavigator = createStackNavigator({
+	Guide:{
+		screen: Guide,
+		navigationOptions:{
+			header:null,
+		}
+	},
+	BottomTab:{
+		screen:TabNavigator,
+		navigationOptions:{
+			header:null,
+		}
+	}
+},{
+	...defaultNavigatorConfig,
+	initialRouteName:'Guide',
+})
 
 
 
 
 
 
-
-export default createAppContainer(TabNavigator);
+export default createAppContainer(AppStactNavigator);

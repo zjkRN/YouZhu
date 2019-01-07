@@ -27,15 +27,14 @@ target 'YouZhu' do
       'RCTVibration',
       'RCTWebSocket',
       'RCTLinkingIOS',
-      #'BatchedBridge',
-      #rn > 0.45 version need,it will be deprecated and removed in a future
+      #'BatchedBridge', #rn > 0.45 version need,it will be deprecated and removed in a future
       # Add any other subspecs you want to use in your project
   ]
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   
   # pod 'RNSyanImagePicker', :path => '../node_modules/react-native-syan-image-picker/ios'
-  # pod 'rn-splash-screen', :path => '../node_modules/rn-splash-screen'
+  pod 'rn-splash-screen', :path => '../node_modules/rn-splash-screen'
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
