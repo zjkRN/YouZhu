@@ -47,9 +47,9 @@ class ListItem extends Component {
   			/>
   			<View style={styles.itemContent}>
   				<View style={{flex:1}}>
-	  				<Text style={styles.itemTitle}>标题标题标题</Text>
-	  				<Text style={styles.itemDesc}>出发地：北京     目的地：北京</Text>
-	  				<Text style={styles.itemDesc}>时间：2018-12-12</Text>
+	  				<Text style={styles.itemTitle}>{item.title}</Text>
+	  				<Text style={styles.itemDesc}>出发地：{item.from}     目的地：{item.to}</Text>
+	  				<Text style={styles.itemDesc}>时间：{item.stime}</Text>
 	  			</View>
 	  			<View style={{flexDirection:'row'}}>
 	  				{	buttons.map((btnKey, btnIndex) => {
@@ -67,7 +67,7 @@ class ListItem extends Component {
 			  				</View>
 		  				)
 	  				}
-	  				)}
+	  			)}
 	  			</View>
   			</View>
   		</View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 		flexDirection:'row',
 		paddingHorizontal:15,
 		paddingVertical:10,
-		marginTop:10,
+		marginBottom:10,
 	},
 	itemImg:{
 		width:110,

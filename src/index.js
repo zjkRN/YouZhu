@@ -28,6 +28,7 @@ class App extends React.Component {
   	setTimeout(()=>{
       SplashScreen.hide();
   	}, 2000);
+
   }
 
   // openApp(){
@@ -50,6 +51,8 @@ class App extends React.Component {
   //     showGuide: false
   //   });
   // }
+
+
 }
 
 

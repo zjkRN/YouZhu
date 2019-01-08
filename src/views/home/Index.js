@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   Platform,
   StatusBar,
+  BackHandler,
 } from 'react-native';
 
 import commonStyles, { colors } from '../common.style';
@@ -249,14 +250,37 @@ class Index extends Component {
 
   componentDidMount(){
     this.loadData();
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+
+  }
+
+  componentWillUnmount(){
+    this.backHandler.remove();
+  }
+
+  onBackAndroid = () => {
+    const { navigation } = this.props;
+
+    if(this.props.navigation.isFocused()) {
+      if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) { 
+        //最近2秒内按过back键，可以退出应用。
+        return false; 
+       } 
+       this.lastBackPressed = Date.now(); 
+       Toast.show('再按一次退出应用'); 
+       return true;   
+    }
   }
 
   loadData(){
-    HttpRequest.get('/').then(data => {
+    HttpRequest.get('/home').then(res => {
+      if(res.code !== 'SUCCESS'){
+        return;
+      }
       this.setState({
-        banners:data.banners,
-        messages:data.messages,
-        hotProducts:data.products
+        banners:res.data.banners,
+        messages:res.data.messages,
+        hotProducts:res.data.products
       });
     });
   }

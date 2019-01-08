@@ -6,7 +6,8 @@ import {
 	createStackNavigator, 
 	createAppContainer,
 	createDrawerNavigator,
-	createBottomTabNavigator
+	createBottomTabNavigator,
+	StackViewTransitionConfigs
 } from 'react-navigation';
 
 import {colors} from './views/common.style';
@@ -26,9 +27,26 @@ import About from './views/me/About';
 import Guide from './views/Guide';
 
 
+// 数组中的路由，可以自定义动画效果，这里我只改了登录
+const IOS_MODAL_ROUTES = ['Login'];
+
+const dynamicModalTransition = (transitionProps, prevTransitionProps) => {
+  const isModal = IOS_MODAL_ROUTES.some(
+    screenName =>
+      screenName === transitionProps.scene.route.routeName ||
+      (prevTransitionProps && screenName === prevTransitionProps.scene.route.routeName)
+  )
+  return StackViewTransitionConfigs.defaultTransitionConfig(
+    transitionProps,
+    prevTransitionProps,
+    true
+  );
+};
+
 
 const defaultNavigatorConfig = {
 	headerLayoutPreset:'center',
+	transitionConfig:dynamicModalTransition,
 	defaultNavigationOptions:{
 		headerStyle:{
       backgroundColor:'#262626',
@@ -43,10 +61,13 @@ const defaultNavigatorConfig = {
 	}
 }
 
+
+
+
 const PlanNavigator = createStackNavigator({
 	PlanList: {
 		screen: ProList,
-		params:{ type:'plan' },
+		params:{ type:1 },
 		navigationOptions:({navigation}) => ({
 			title:'我的行程',
 			headerBackTitle:null,
@@ -114,9 +135,7 @@ const MeNavigator = createStackNavigator({
 const ProductNavigator = createStackNavigator({
 	ProList:{
 		screen: ProList,
-		params: {
-			type:'pro'
-		},
+		params: { type:2 },
 		navigationOptions:{
 			title:'友助推荐',
 			headerBackTitle:null,

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SYImagePicker from 'react-native-syan-image-picker'
-
+import { withNavigation } from "react-navigation";
 
 import {
   StyleSheet,
@@ -21,6 +21,8 @@ import EventTypes from '../../config/eventTypes';
 import commonStyles, { colors } from '../common.style';
 import ListItem from './ListItem';
 
+import HttpRequest from '../../utils/httpRequest';
+
 class PlanList extends Component {
 
   constructor(props) {
@@ -28,10 +30,11 @@ class PlanList extends Component {
     this.state = {
       type: props.navigation.getParam('type'),
       searchValue:'',
+      pageNum: 1,
       dataItems:[
-        {id:1, content:'test content 1', image:{width:100, height:300, uri:'http://g.hiphotos.baidu.com/image/pic/item/024f78f0f736afc3cf9d3fdebe19ebc4b64512f3.jpg'}},
-        {id:2, content:'test content 2', image:{width:100, height:300, uri:'http://a.hiphotos.baidu.com/image/pic/item/d439b6003af33a87112d6dadcb5c10385243b5c1.jpg'}},
-        {id:3, content:'test content 3', image:{width:100, height:300, uri:'http://d.hiphotos.baidu.com/image/pic/item/2934349b033b5bb512407b473bd3d539b700bcf0.jpg'}},
+        // {id:1, content:'test content 1', image:{width:100, height:300, uri:'http://g.hiphotos.baidu.com/image/pic/item/024f78f0f736afc3cf9d3fdebe19ebc4b64512f3.jpg'}},
+        // {id:2, content:'test content 2', image:{width:100, height:300, uri:'http://a.hiphotos.baidu.com/image/pic/item/d439b6003af33a87112d6dadcb5c10385243b5c1.jpg'}},
+        // {id:3, content:'test content 3', image:{width:100, height:300, uri:'http://d.hiphotos.baidu.com/image/pic/item/2934349b033b5bb512407b473bd3d539b700bcf0.jpg'}},
       ]
     };
   }
@@ -71,12 +74,11 @@ class PlanList extends Component {
   _renderItem = ({item, index}) => {
     const {type} = this.state;
     let buttons = [];
-
     switch(type){
-      case 'plan':
+      case 1: // 行程
         buttons = ['star','wechat','moment','edit','delete'];
         break;
-      case 'pro':
+      case 2: // 产品
         buttons = ['star','wechat','moment','copy'];
         break;
       case 'star':
@@ -90,21 +92,27 @@ class PlanList extends Component {
   }
 
   componentDidMount(){
-    console.log(this.state.type)
     const { navigation } = this.props;
     navigation.setParams({
       onBtnAddClick: () => this.onBtnAddClick(),
     });
+    this.setState({dataItems: [] });
+
     // this.eventBackHome = DeviceEventEmitter.addListener(EventTypes.EVENT_BACK_HOME, () => this.loadData());
     this.eventStar = DeviceEventEmitter.addListener(EventTypes.EVENT_STAR, (item) => {
-      // console.log(this.state.dataItems);
       this.setState({dataItems: Object.assign([], this.state.dataItems)});
     });
-    // this.loadData();
+    this.didFocus = navigation.addListener('didFocus', () => {
+      this.loadData();
+    })
   }
+
+  
+
   componentWillUnmount(){
     // this.eventBackHome.remove();
     this.eventStar.remove();
+    this.didFocus.remove();
   }
 
   // componentWillReceiveProps(nextProps){
@@ -112,24 +120,27 @@ class PlanList extends Component {
   //   // 每次值更新时，都会走这个方法，所以可以在这里添加判断以更新页面
   // }
 
-  
-
   loadData(){
-    LocalStorage.get('dataItems').then(res => {
-      this.setState({ dataItems: res });
+    const {searchValue, pageNum, type } = this.state;
+    let data = {
+      key: searchValue,
+      pageNum: pageNum,
+      type: type
+    };
+    HttpRequest.post('/product', data).then(res => {
+      if(res.code !== "SUCCESS"){
+        return;
+      }
+      this.setState({dataItems: res.data });
     });
   }
 
   onSearch(){
     const {searchValue} = this.state;
-    if(!searchValue){
-      return;
-    }
-
-    alert(this.state.searchValue);
+    this.loadData();
   }
   onBtnAddClick(){
-    SYImagePicker.asyncShowImagePicker({ imageCount:3 }).then(photos => {
+    SYImagePicker.asyncShowImagePicker({ imageCount:1 }).then(photos => {
       let curItem = {};
       curItem.image = { 
         width:photos[0].width, 
@@ -159,23 +170,13 @@ class PlanList extends Component {
 
 const styles = StyleSheet.create({
   container:{
-    marginTop:20,
+    marginTop:10,
     flex:1,
-  },
-  add:{
-    alignItems:'center',
-    justifyContent:'center',
-    borderColor:'#ccc',
-    borderRadius:10,
-    paddingVertical:20,
-    marginHorizontal:15,
-    borderStyle:'dashed',
-    borderWidth: 1,
-    marginBottom:20,
   },
   searchBox:{
     flexDirection:'row',
     marginHorizontal:15,
+    marginBottom:10,
     borderColor:'#f0f0f0',
     borderWidth:1,
     backgroundColor:'#fff',
@@ -225,4 +226,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default PlanList;
+export default withNavigation(PlanList);

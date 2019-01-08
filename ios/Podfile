@@ -33,11 +33,12 @@ target 'YouZhu' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   
-  # pod 'RNSyanImagePicker', :path => '../node_modules/react-native-syan-image-picker/ios'
+  #pod 'RNSyanImagePicker', :path => '../node_modules/react-native-syan-image-picker/ios'
   pod 'rn-splash-screen', :path => '../node_modules/rn-splash-screen'
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
+  pod 'react-native-cookies', :path => '../node_modules/react-native-cookies'
 end
