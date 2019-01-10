@@ -82,7 +82,7 @@ const PlanNavigator = createStackNavigator({
         )
 		})
 	},
-	PlanDetail: ProDetail,
+	ProDetail: ProDetail,
 }, {
 	...defaultNavigatorConfig,
 	initialRouteName:'PlanList',
@@ -98,9 +98,7 @@ const MeNavigator = createStackNavigator({
 	},
 	StarList:{
 		screen: ProList,
-		params:{
-			type: 'star'
-		},
+		params:{ type: 3 },
 		navigationOptions:{
 			title:'我的收藏',
 			headerBackTitle:null,
@@ -141,7 +139,7 @@ const ProductNavigator = createStackNavigator({
 			headerBackTitle:null,
 		},
 	},
-	PlanDetail: ProDetail,
+	ProDetail: ProDetail,
 },{
 	...defaultNavigatorConfig,
 	initialRouteName:'ProList'

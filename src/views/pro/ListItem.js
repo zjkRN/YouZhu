@@ -3,18 +3,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Toast from 'react-native-root-toast';
 
 import {
   StyleSheet,
   View,
   Image,
   Text,
+  Clipboard,
   DeviceEventEmitter,
+  NativeModules,
 } from 'react-native';
 
 import { colors } from '../common.style';
 import EventTypes from '../../config/eventTypes';
-
+import HttpRequest from '../../utils/httpRequest';
 
 class ListItem extends Component {
 	static propTypes = {
@@ -75,8 +78,27 @@ class ListItem extends Component {
   }
 
   onStar(item){
-  	item.isStar = !item.isStar;
-  	DeviceEventEmitter.emit(EventTypes.EVENT_STAR, item);
+  	let data = {
+  		pid:item.id
+  	};
+  	if(!item.isStar){
+  		HttpRequest.post(`/star/${item.id}`).then(res => {
+	  		if(res.code === 'SUCCESS'){
+	  			item.isStar = !item.isStar;
+	  			DeviceEventEmitter.emit(EventTypes.EVENT_STAR, item);
+	  			Toast.show('已收藏')
+	  		}
+	  	});
+	  	return;
+  	}
+  	
+  	HttpRequest.delete(`/star/${item.id}`).then(res => {
+  		if(res.code === 'SUCCESS'){
+  			item.isStar = !item.isStar;
+	  		DeviceEventEmitter.emit(EventTypes.EVENT_STAR, item);
+	  		Toast.show('已取消收藏');
+  		}
+  	});
   }
 
   onShareFriend(item){
@@ -84,15 +106,23 @@ class ListItem extends Component {
   }
 
   onShareMoment(item){
-  	alert('onShareMoment')
+  	console.log(item)
+  	Clipboard.setString(item.content);
+    NativeModules.RNShareModule.shareToTimeLine(item.image.uri, item.content, (response)=>{
+      if(response.code !== 'SUCCESS'){
+        // Toast.fail(response.msg);
+        console.log(response.msg);
+        return;
+      }
+    });
   }
   
   onCopy(item){
-  	this.props.navigation.navigate('PlanDetail', { item: item });
+  	this.props.navigation.navigate('ProDetail', { item: item });
   }
 
   onEdit(item){
-  	this.props.navigation.navigate('PlanDetail', { item: item });
+  	this.props.navigation.navigate('ProDetail', { item: item });
   }
 
   onDelete(item){

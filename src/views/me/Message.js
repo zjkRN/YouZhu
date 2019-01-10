@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 
 import commonStyles, { colors } from '../common.style';
+import HttpRequest from '../../utils/httpRequest';
+import utils from '../../utils/utils';
+
 
 class Message extends Component {
 
@@ -20,11 +23,11 @@ class Message extends Component {
 	
 	  this.state = {
 	  	dataItems:[
-	  		{id:1, type:'notice', title:'消息标题1', content:'消息内容', ctime:'2018-11-12'},
-	  		{id:2, type:'notice', title:'消息标题2', content:'消息内容', ctime:'2018-11-12'},
-	  		{id:3, type:'notice', title:'消息标题3', content:'消息内容', ctime:'2018-11-12'},
-	  		{id:4, type:'notice', title:'消息标题4', content:'消息内容', ctime:'2018-11-12'},
-	  		{id:5, type:'notice', title:'消息标题5', content:'消息内容', ctime:'2018-11-12'},
+	  		// {id:1, type:'notice', title:'消息标题1', content:'消息内容', ctime:'2018-11-12'},
+	  		// {id:2, type:'notice', title:'消息标题2', content:'消息内容', ctime:'2018-11-12'},
+	  		// {id:3, type:'notice', title:'消息标题3', content:'消息内容', ctime:'2018-11-12'},
+	  		// {id:4, type:'notice', title:'消息标题4', content:'消息内容', ctime:'2018-11-12'},
+	  		// {id:5, type:'notice', title:'消息标题5', content:'消息内容', ctime:'2018-11-12'},
 	  	],
 	  };
 	}
@@ -49,7 +52,7 @@ class Message extends Component {
   	return (
   		<TouchableOpacity 
         activeOpacity={1} 
-        onPress={()=> navigation.navigate('MessageDetail')}
+        onPress={()=> this.onItemClick(item)}
         style={commonStyles.groupRow}>
         <View style={styles.iconBox}>
           <AntDesign 
@@ -60,10 +63,35 @@ class Message extends Component {
         <View style={[commonStyles.groupContent,{paddingRight:0}]}>
         	<Text style={[commonStyles.groupTitle,{paddingRight:70}]} numberOfLines={1}>{item.title}</Text>
         	<Text style={commonStyles.groupDesc} numberOfLines={1}>{item.content}</Text>
-        	<Text style={styles.time}>{item.ctime}</Text>
+        	<Text style={styles.time}>{utils.formatDate(item.ctime)}</Text>
         </View>
       </TouchableOpacity>
   	);
+  }
+
+  componentDidMount(){
+    this.loadData();
+  }
+
+  loadData(){
+    let data = {
+      pageSize:15,
+      pageNum: 1
+    };
+
+    HttpRequest.post('/message',data).then(res => {
+      if(res.code === 'SUCCESS'){
+        this.setState({
+          dataItems: res.data
+        });
+      }
+    });
+  }
+
+  onItemClick(item){
+    const { navigation } = this.props;
+
+    navigation.navigate('MessageDetail',{ item });
   }
 }
 

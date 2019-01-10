@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     lineHeight:20,
     fontSize:14,
+    marginBottom:5,
   },
   groupDesc:{
     color: colors.gray,

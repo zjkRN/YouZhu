@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import commonStyles, { colors } from '../common.style';
+import utils from '../../utils/utils';
+
 
 class MessageDetail extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -23,10 +25,10 @@ class MessageDetail extends Component {
 	
 	  this.state = {
 	  	data:{
-	  		id:1,
-	  		title:'消息标题消息标题消息标题消息标题',
-	  		content:'消息正文换行消息正文换行消息正文\n换行消息正文换行消息正文\n换行消息正文换行消息正文\n换行消息正文换行',
-	  		ctime:'2018-11-11'
+	  		// id:1,
+	  		// title:'消息标题消息标题消息标题消息标题',
+	  		// content:'消息正文换行消息正文换行消息正文\n换行消息正文换行消息正文\n换行消息正文换行消息正文\n换行消息正文换行',
+	  		// ctime:'2018-11-11'
 	  	}
 	  };
 	}
@@ -37,7 +39,7 @@ class MessageDetail extends Component {
       <View style={commonStyles.container}>
       	<ScrollView style={commonStyles.group}>
       		<Text style={styles.title}>{data.title}</Text>
-      		<Text style={styles.ctime}>{data.ctime}</Text>
+      		<Text style={styles.ctime}>{utils.formatDate(data.ctime)}</Text>
       		<View style={styles.conBox}>
       			<Text style={styles.content}>{data.content}</Text>
       		</View>
@@ -47,11 +49,11 @@ class MessageDetail extends Component {
   }
 
   componentDidMount(){
-  	const {navigation} = this.props;
-  	const {data} = this.state;
-    navigation.setParams({
-      title: data.title
-    });
+  	const { navigation } = this.props;
+  	const { data } = this.state;
+    navigation.setParams({ title: data.title });
+
+    this.state.data = navigation.getParam('item', this.state.data);
   }
 }
 
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
 		fontSize:18,
 		fontWeight:'bold',
 		textAlign: 'center',
-		paddingTop:15,
+		paddingVertical:10,
 	},
 	ctime:{
 		lineHeight:20,
